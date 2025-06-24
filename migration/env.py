@@ -9,17 +9,13 @@ from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from alembic import context
 from src.entity.models import Base
 
-# Добавим загрузку переменных окружения
 from dotenv import load_dotenv
 
-# Загрузка из .env
 load_dotenv()
 
-# Alembic конфигурация
 config = context.config
 fileConfig(config.config_file_name)
 
-# Формируем URL из переменных окружения
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
@@ -28,10 +24,8 @@ DB_NAME = os.getenv("DB_NAME")
 
 DB_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-# Устанавливаем URL подключения
 config.set_main_option("sqlalchemy.url", DB_URL)
 
-# Модели SQLAlchemy
 target_metadata = Base.metadata
 
 

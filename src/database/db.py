@@ -3,8 +3,6 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, AsyncEngin
 from src.conf.config import config
 
 
-
-
 class DataBaseSessionManager:
     def __init__(self, url: str):
         self._engine: AsyncEngine = create_async_engine(url, echo=True)

@@ -25,4 +25,3 @@ class ContactUpdate(ContactBase):
 
 class ContactResponse(ContactBase):
     id: int
-
