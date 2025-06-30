@@ -16,8 +16,9 @@ class DataBaseSessionManager:
         try:
             yield session
         except Exception as e:
-            print(e)
+            print(f"Rollback because of exception: {e}")
             await session.rollback()
+            raise
         finally:
             await session.close()
 
