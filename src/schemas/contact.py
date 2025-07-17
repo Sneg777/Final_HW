@@ -1,7 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from datetime import date
-from src.schemas.user import UserResponse
 from datetime import datetime
 
 

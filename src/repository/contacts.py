@@ -71,11 +71,12 @@ async def delete_contact(contact_id: int, db: AsyncSession, user: User):
     return contact
 
 
-async def get_upcoming_birthdays(db: AsyncSession, user: User):  # TODO: user depends
+async def get_upcoming_birthdays(db: AsyncSession, user: User):
     today = date.today()
     next_week = today + timedelta(days=7)
 
-    result = await db.execute(select(Contact))
+    stmt = select(Contact).where(Contact.user_id == user.id)
+    result = await db.execute(stmt)
     contacts = result.scalars().all()
 
     upcoming_birthdays = []

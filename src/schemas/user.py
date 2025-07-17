@@ -1,6 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
-from datetime import date
 
 
 class UserSchema(BaseModel):
@@ -23,3 +22,7 @@ class TokenSchema(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
+
+
+class RequestEmail(BaseModel):
+    email: EmailStr

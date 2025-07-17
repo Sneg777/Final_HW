@@ -7,30 +7,30 @@ from src.schemas.contact import ContactCreate, ContactUpdate, ContactResponse
 from src.repository import contacts as repo
 from src.database.db import get_db
 from src.entity.models import User
+from fastapi_limiter.depends import RateLimiter
 
 router = APIRouter(prefix="/contacts", tags=["contacts"])
 
 
-@router.get("/", response_model=List[ContactResponse])
+@router.get("/", response_model=List[ContactResponse], dependencies=[Depends(RateLimiter(times=10, seconds=20))])
 async def read_contacts(limit: int = 10, offset: int = 0, db: AsyncSession = Depends(get_db),
                         user: User = Depends(auth_service.get_current_user)):
     return await repo.get_contacts(limit, offset, db, user)
 
 
-@router.get("/first_name/{first_name}", response_model=List[ContactResponse])
+@router.get("/first_name/{first_name}", response_model=List[ContactResponse], dependencies=[Depends(RateLimiter(times=3, seconds=20))])
 async def get_contacts_by_first_name(first_name: str, db: AsyncSession = Depends(get_db),
                                      user: User = Depends(auth_service.get_current_user)):
     return await repo.get_contacts_by_first_name(first_name, db, user)
 
 
-@router.get("/last_name/{last_name}", response_model=List[ContactResponse])
+@router.get("/last_name/{last_name}", response_model=List[ContactResponse], dependencies=[Depends(RateLimiter(times=3, seconds=20))])
 async def get_contacts_by_last_name(last_name: str, db: AsyncSession = Depends(get_db),
                                     user: User = Depends(auth_service.get_current_user)):
     return await repo.get_contacts_by_last_name(last_name, db, user)
 
 
-
-@router.get("/contact_id/{contact_id}", response_model=ContactResponse)
+@router.get("/contact_id/{contact_id}", response_model=ContactResponse, dependencies=[Depends(RateLimiter(times=3, seconds=20))])
 async def get_contact_by_id(contact_id: int, db: AsyncSession = Depends(get_db),
                             user: User = Depends(auth_service.get_current_user)):
     contact = await repo.get_contact_by_id(contact_id, db, user)
@@ -39,7 +39,7 @@ async def get_contact_by_id(contact_id: int, db: AsyncSession = Depends(get_db),
     return contact
 
 
-@router.get("/email/{email}", response_model=ContactResponse)
+@router.get("/email/{email}", response_model=ContactResponse, dependencies=[Depends(RateLimiter(times=3, seconds=20))])
 async def get_contact_by_email(email: str, db: AsyncSession = Depends(get_db),
                                user: User = Depends(auth_service.get_current_user)):
     contact = await repo.get_contact_by_email(email, db, user)
@@ -48,13 +48,13 @@ async def get_contact_by_email(email: str, db: AsyncSession = Depends(get_db),
     return contact
 
 
-@router.post("/", response_model=ContactResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=ContactResponse, status_code=status.HTTP_201_CREATED, dependencies=[Depends(RateLimiter(times=3, seconds=20))])
 async def create_contact(body: ContactCreate, db: AsyncSession = Depends(get_db),
                          user: User = Depends(auth_service.get_current_user)):
     return await repo.create_contact(body, db, user)
 
 
-@router.put("/{contact_id}", response_model=ContactResponse)
+@router.put("/{contact_id}", response_model=ContactResponse, dependencies=[Depends(RateLimiter(times=3, seconds=20))])
 async def update_contact(contact_id: int, body: ContactUpdate, db: AsyncSession = Depends(get_db),
                          user: User = Depends(auth_service.get_current_user)):
     contact = await repo.update_contact(contact_id, body, db, user)
@@ -63,7 +63,7 @@ async def update_contact(contact_id: int, body: ContactUpdate, db: AsyncSession 
     return contact
 
 
-@router.delete("/{contact_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{contact_id}", status_code=status.HTTP_204_NO_CONTENT, dependencies=[Depends(RateLimiter(times=3, seconds=20))])
 async def delete_contact(contact_id: int, db: AsyncSession = Depends(get_db),
                          user: User = Depends(auth_service.get_current_user)):
     contact = await repo.delete_contact(contact_id, db, user)
@@ -71,7 +71,7 @@ async def delete_contact(contact_id: int, db: AsyncSession = Depends(get_db),
         raise HTTPException(status_code=404, detail="Contact not found")
 
 
-@router.get("/upcoming-birthdays", response_model=List[ContactResponse])
+@router.get("/upcoming-birthdays", response_model=List[ContactResponse], dependencies=[Depends(RateLimiter(times=3, seconds=20))])
 async def upcoming_birthdays(db: AsyncSession = Depends(get_db),
                              user: User = Depends(auth_service.get_current_user)):
     return await repo.get_upcoming_birthdays(db, user)
