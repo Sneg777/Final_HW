@@ -1050,7 +1050,6 @@ files = [
 
 [package.dependencies]
 annotated-types = ">=0.6.0"
-email-validator = {version = ">=2.0.0", optional = true, markers = "extra == \"email\""}
 pydantic-core = "2.33.2"
 typing-extensions = ">=4.12.2"
 typing-inspection = ">=0.4.0"
@@ -1435,7 +1434,7 @@ version = "3.2.0"
 description = "Type hints (PEP 484) support for the Sphinx autodoc extension"
 optional = false
 python-versions = ">=3.11"
-groups = ["main"]
+groups = ["main", "dev"]
 files = [
     {file = "sphinx_autodoc_typehints-3.2.0-py3-none-any.whl", hash = "sha256:884b39be23b1d884dcc825d4680c9c6357a476936e3b381a67ae80091984eb49"},
     {file = "sphinx_autodoc_typehints-3.2.0.tar.gz", hash = "sha256:107ac98bc8b4837202c88c0736d59d6da44076e65a0d7d7d543a78631f662a9b"},
@@ -1454,7 +1453,7 @@ version = "3.0.2"
 description = "Read the Docs theme for Sphinx"
 optional = false
 python-versions = ">=3.8"
-groups = ["main"]
+groups = ["main", "dev"]
 files = [
     {file = "sphinx_rtd_theme-3.0.2-py2.py3-none-any.whl", hash = "sha256:422ccc750c3a3a311de4ae327e82affdaf59eb695ba4936538552f3b00f4ee13"},
     {file = "sphinx_rtd_theme-3.0.2.tar.gz", hash = "sha256:b7457bc25dda723b20b086a670b9953c859eab60a2a03ee8eb2bb23e176e5f85"},
@@ -1525,7 +1524,7 @@ version = "4.1"
 description = "Extension to include jQuery on newer Sphinx releases"
 optional = false
 python-versions = ">=2.7"
-groups = ["main"]
+groups = ["main", "dev"]
 files = [
     {file = "sphinxcontrib-jquery-4.1.tar.gz", hash = "sha256:1620739f04e36a2c779f1a131a2dfd49b2fd07351bf1968ced074365933abc7a"},
     {file = "sphinxcontrib_jquery-4.1-py2.py3-none-any.whl", hash = "sha256:f936030d7d0147dd026a4f2b5a57343d233f1fc7b363f68b3d4f1cb0993878ae"},
@@ -1764,4 +1763,4 @@ standard = ["colorama (>=0.4) ; sys_platform == \"win32\"", "httptools (>=0.6.3)
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "9e52dd5618ffd7ba1c8bad3101e50a00644c6cf248eb1277f7b44f1c5aa734f2"
+content-hash = "c1d07b3da57ad36735047b85af4ebfc7e745d08c4fb87f8bd6ef53619d8772c7"

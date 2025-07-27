@@ -1,7 +1,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.append(0, os.path.abspath('..'))
 
 project = 'Contacts Project'
 copyright = '2025, Yevhenii Bessonov'
@@ -13,7 +13,8 @@ author = 'Yevhenii Bessonov'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'sphinx_rtd_theme'
 ]
 
 templates_path = ['_templates']
