@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>src.conf.config &#8212; Contacts Project  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/nature.css?v=279e0f84" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Contacts Project  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.conf.config</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for src.conf.config</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">decouple</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">c</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigDict</span><span class="p">,</span> <span class="n">field_validator</span><span class="p">,</span> <span class="n">EmailStr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic_settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSettings</span>
+
+
+<div class="viewcode-block" id="Settings">
+<a class="viewcode-back" href="../../../index.html#src.conf.config.Settings">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Settings</span><span class="p">(</span><span class="n">BaseSettings</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Application configuration settings loaded from environment variables.</span>
+
+<span class="sd">    Uses python-decouple for environment variable loading and Pydantic for validation.</span>
+<span class="sd">    All sensitive credentials should be stored in the .env file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">DB_USER</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;DB_USER&quot;</span><span class="p">)</span>
+    <span class="n">DB_PASSWORD</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;DB_PASSWORD&quot;</span><span class="p">)</span>
+    <span class="n">DB_HOST</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;DB_HOST&quot;</span><span class="p">)</span>
+    <span class="n">DB_PORT</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;DB_PORT&quot;</span><span class="p">)</span>
+    <span class="n">DB_NAME</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;DB_NAME&quot;</span><span class="p">)</span>
+
+    <span class="n">SECRET_KEY</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;SECRET_KEY&quot;</span><span class="p">)</span>
+    <span class="n">ALGORITHM</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;ALGORITHM&quot;</span><span class="p">)</span>
+    <span class="n">MAIL_USERNAME</span><span class="p">:</span> <span class="n">EmailStr</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;MAIL_USERNAME&quot;</span><span class="p">)</span>
+    <span class="n">MAIL_PASSWORD</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;MAIL_PASSWORD&quot;</span><span class="p">)</span>
+    <span class="n">MAIL_FROM</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;MAIL_FROM&quot;</span><span class="p">)</span>
+    <span class="n">MAIL_PORT</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;MAIL_PORT&quot;</span><span class="p">)</span>
+    <span class="n">MAIL_SERVER</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;MAIL_SERVER&quot;</span><span class="p">)</span>
+    <span class="n">REDIS_DOMAIN</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;REDIS_DOMAIN&quot;</span><span class="p">)</span>
+    <span class="n">REDIS_PORT</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;REDIS_PORT&quot;</span><span class="p">)</span>
+    <span class="n">REDIS_PASSWORD</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;REDIS_PASSWORD&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">DB_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs and returns the PostgreSQL database connection URL.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: PostgreSQL async connection URL in format:</span>
+<span class="sd">                 postgresql+asyncpg://user:password@host:port/dbname</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;postgresql+asyncpg://</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">DB_USER</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">DB_PASSWORD</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;@</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">DB_HOST</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">DB_PORT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">DB_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="Settings.validate_algorithm">
+<a class="viewcode-back" href="../../../index.html#src.conf.config.Settings.validate_algorithm">[docs]</a>
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;ALGORITHM&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_algorithm</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validates that the JWT algorithm is one of the supported HMAC algorithms.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            v: Algorithm string to validate</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Validated algorithm</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If algorithm is not supported</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;HS256&quot;</span><span class="p">,</span> <span class="s2">&quot;HS384&quot;</span><span class="p">,</span> <span class="s2">&quot;HS512&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ALGORITHM must be &#39;HS256&#39;, &#39;HS384&#39;, or &#39;HS512&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span></div>
+
+
+    <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="s2">&quot;.env&quot;</span><span class="p">,</span> <span class="n">env_file_encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span></div>
+
+
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">()</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Contacts Project  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.conf.config</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Yevhenii Bessonov.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

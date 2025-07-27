@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from typing import Optional
 from datetime import date
 from datetime import datetime
@@ -11,9 +11,7 @@ class ContactBase(BaseModel):
     phone: Optional[str] = Field(None, max_length=20)
     birthday: Optional[date] = None
     additional_data: Optional[str] = Field(None, max_length=200)
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)  # noqa
 
 
 class ContactCreate(ContactBase):

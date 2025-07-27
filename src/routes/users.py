@@ -14,6 +14,15 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 @router.get("/me", response_model=UserResponse, dependencies=[Depends(RateLimiter(times=1, seconds=20))])
 async def get_current_user(user: User = Depends(auth_service.get_current_user)):
+    """
+    Retrieve the currently authenticated user's information.
+
+    Args:
+        user (User): Current authenticated user (auto-injected via dependency).
+
+    Returns:
+        UserResponse: Detailed information about the authenticated user.
+    """
     return user
 
 
@@ -23,6 +32,21 @@ async def update_avatar_user(
         current_user: User = Depends(auth_service.get_current_user),
         db: AsyncSession = Depends(get_db),
 ):
+    """
+    Update the avatar image for the current user.
+
+    Args:
+        file (UploadFile): The image file to upload as avatar.
+        current_user (User): Current authenticated user.
+        db (AsyncSession): Database session.
+
+    Returns:
+        UserResponse: Updated user information with new avatar URL.
+
+    Raises:
+        HTTPException: If there's an error during file upload or database operation.
+                      Status code 500 for internal server errors.
+    """
     try:
         file_content = await file.read()
         result = cloudinary.uploader.upload(

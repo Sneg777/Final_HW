@@ -4,6 +4,12 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    """
+    Application configuration settings loaded from environment variables.
+
+    Uses python-decouple for environment variable loading and Pydantic for validation.
+    All sensitive credentials should be stored in the .env file.
+    """
     DB_USER: str = c("DB_USER")
     DB_PASSWORD: str = c("DB_PASSWORD")
     DB_HOST: str = c("DB_HOST")
@@ -23,6 +29,13 @@ class Settings(BaseSettings):
 
     @property
     def DB_URL(self) -> str:
+        """
+        Constructs and returns the PostgreSQL database connection URL.
+
+        Returns:
+            str: PostgreSQL async connection URL in format:
+                 postgresql+asyncpg://user:password@host:port/dbname
+        """
         return (
             f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}"
             f"@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
@@ -31,6 +44,18 @@ class Settings(BaseSettings):
     @field_validator("ALGORITHM")
     @classmethod
     def validate_algorithm(cls, v):
+        """
+        Validates that the JWT algorithm is one of the supported HMAC algorithms.
+
+        Args:
+            v: Algorithm string to validate
+
+        Returns:
+            str: Validated algorithm
+
+        Raises:
+            ValueError: If algorithm is not supported
+        """
         if v not in ["HS256", "HS384", "HS512"]:
             raise ValueError("ALGORITHM must be 'HS256', 'HS384', or 'HS512'")
         return v
